@@ -1,17 +1,22 @@
 """
     Tutorials: https://lelon.io/blog/pytorch-baby-steps
 """
-import torch # Tensor Package for GPU
-from torch.autograd import Variable # For computational graphs
-import torch.nn as nn # Neural network package
-import torch.nn.functional as F # Non-linear package
-import torch.optim as optim # Optimiazation Package
-from torch.utils.data import Dataset, TensorDataset, DataLoader # Data Processing package
-import torchvision # data Vision package
-import torchvision.transforms as transforms # modifying vision daa to run it through models
+import torch  # Tensor Package for GPU
+from torch.autograd import Variable  # For computational graphs
+import torch.nn as nn  # Neural network package
+import torch.nn.functional as F  # Non-linear package
+import torch.optim as optim  # Optimiazation Package
+from torch.utils.data import (
+    Dataset,
+    TensorDataset,
+    DataLoader,
+)  # Data Processing package
+import torchvision  # data Vision package
+import torchvision.transforms as transforms  # modifying vision daa to run it through models
 
 import matplotlib.pyplot as plt
 import numpy as np
+
 
 def main():
     # # 1: Create a tensor a nd put in a Variable for training later
@@ -68,11 +73,11 @@ def main():
     # print(f"The output is: {linear_layer1(x1_var)}")
 
     ############################## Fully Updates with Stochastic Gradient Descent with 6 epochs
-    x1 = torch.Tensor([1,2,3,4,56])
+    x1 = torch.Tensor([1, 2, 3, 4, 56])
     x1_var = Variable(x1, requires_grad=False)
 
-    linear_layer1 = nn.Linear(5,1) # Create a layer model
-    labels = Variable(torch.Tensor([0]), requires_grad=False) # Generate output
+    linear_layer1 = nn.Linear(5, 1)  # Create a layer model
+    labels = Variable(torch.Tensor([0]), requires_grad=False)  # Generate output
 
     # Using feedforward to calculate the output
     print(f"Before Training, output are: {linear_layer1(x1_var)}")
@@ -80,17 +85,20 @@ def main():
 
     EPOCH_NUM = 6
     LR = 1e-4
-    loss_function = nn.MSELoss() # Create a loss function
-    optimizer = optim.SGD(linear_layer1.parameters(), lr=LR) # Create an optimizer
+    loss_function = nn.MSELoss()  # Create a loss function
+    optimizer = optim.SGD(linear_layer1.parameters(), lr=LR)  # Create an optimizer
 
     for epoch in range(EPOCH_NUM):
-        linear_layer1.zero_grad() # Refresh the gradient everytime
+        linear_layer1.zero_grad()  # Refresh the gradient everytime
         predictions = linear_layer1(x1_var)
         loss = loss_function(predictions, labels)
-        loss.backward() # Calculate the gradient
+        loss.backward()  # Calculate the gradient
         optimizer.step()
 
-        print(f"Epoch {epoch} with output: {linear_layer1(x1_var)}") # Note that the output gets better
+        print(
+            f"Epoch {epoch} with output: {linear_layer1(x1_var)}"
+        )  # Note that the output gets better
+
 
 if __name__ == "__main__":
     main()
